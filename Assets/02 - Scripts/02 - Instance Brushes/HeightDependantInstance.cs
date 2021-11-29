@@ -8,7 +8,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class GameObjectToSpwan {
+public class GameObjectToSpawn {
     public int height;
     public GameObject prefab;
 }
@@ -16,14 +16,17 @@ public class GameObjectToSpwan {
 
 public class HeightDependantInstance : InstanceBrush {    
 
-    public GameObjectToSpwan[] prefabsToSpawn;
+    public GameObjectToSpawn[] prefabsToSpawn;
 
-    public override void draw(float x, float z) {
+    public override void draw(float x, float z)
+    {
         float height = terrain.get(x, z);
-        foreach (GameObjectToSpwan object in prefabsToSpawn)
+        foreach (GameObjectToSpawn objectToSpawn in prefabsToSpawn)
         {
-            if (height <= object.height || object.height < 0)
+            if (height <= objectToSpawn.height || objectToSpawn.height < 0)
             {
+                // set the object to spawn to objectToSpawn.prefab here
+                setInstancePrefab(objectToSpawn.prefab);
                 spawnObject(x, z);
                 return;
             }
