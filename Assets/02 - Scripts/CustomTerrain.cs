@@ -190,6 +190,23 @@ public class CustomTerrain : MonoBehaviour {
     public TreeInstance getObject(int index) {
         return terrain_data.GetTreeInstance(index);
     }
+    public void removeObject(int index)
+    {
+        var treeInstances = new List<TreeInstance>(terrain_data.treeInstances);
+        treeInstances.RemoveAt(index);
+        terrain_data.treeInstances = treeInstances.ToArray();
+    }
+    public void removeObjects(List<int> indexes)
+    {
+        var treeInstances = new List<TreeInstance>(terrain_data.treeInstances);
+        for (int i = indexes.Count - 1; i > -1; i--)
+            treeInstances.RemoveAt(indexes[i]);
+        terrain_data.treeInstances = treeInstances.ToArray();
+    }
+    public void removeAllObjects()
+    {
+        terrain_data.treeInstances = new List<TreeInstance>().ToArray();
+    }
     // Returns an object (tree) location in grid space
     public Vector3 getObjectLoc(int index) {
         return getObjectLoc(terrain_data.GetTreeInstance(index));
