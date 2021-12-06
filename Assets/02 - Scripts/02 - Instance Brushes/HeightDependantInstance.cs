@@ -14,12 +14,14 @@ public class GameObjectToSpawn {
 }
 
 
-public class HeightDependantInstance : InstanceBrush {    
-
+public class HeightDependantInstance : InstanceAddBrush
+{
     public GameObjectToSpawn[] prefabsToSpawn;
 
     public override void draw(float x, float z)
     {
+        snapToGrid(ref x, ref z);
+
         float height = terrain.get(x, z);
         foreach (GameObjectToSpawn objectToSpawn in prefabsToSpawn)
         {
@@ -27,7 +29,7 @@ public class HeightDependantInstance : InstanceBrush {
             {
                 // set the object to spawn to objectToSpawn.prefab here
                 setInstancePrefab(objectToSpawn.prefab);
-                spawnObject(x, z);
+                smartSpwanObject(x, z);
                 return;
             }
         }
