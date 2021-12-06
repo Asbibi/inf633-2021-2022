@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleBrush : TerrainAddBrush {
+public class SimpleSquareBrush : TerrainAddBrush {
 
     public float height = 5;
 
