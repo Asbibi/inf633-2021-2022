@@ -22,7 +22,7 @@ public abstract class InstanceBrush : Brush {
         draw((float)x, (float)z);
     }
 
-    public void spawnObject(float x, float z) {
+    public virtual void spawnObject(float x, float z) {
         if (prefab_idx == -1) {
             return;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InstanceGridBrush : InstanceBrush
+public abstract class InstanceGridBrush : InstanceLimitBrush
 {
     [Header("Grid")]
     public bool snapOnGrid = false;

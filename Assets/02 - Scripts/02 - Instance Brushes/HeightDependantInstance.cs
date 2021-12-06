@@ -9,7 +9,7 @@ using UnityEngine;
 
 [Serializable]
 public class GameObjectToSpawn {
-    public int height;
+    public int height = -1;
     public GameObject prefab;
 }
 
@@ -23,15 +23,18 @@ public class HeightDependantInstance : InstanceAddBrush
         snapToGrid(ref x, ref z);
 
         float height = terrain.get(x, z);
+        GameObjectToSpawn preferredObject = null;
         foreach (GameObjectToSpawn objectToSpawn in prefabsToSpawn)
         {
-            if (height <= objectToSpawn.height || objectToSpawn.height < 0)
+            if (height >= objectToSpawn.height && (preferredObject ==null || objectToSpawn.height > preferredObject.height))
             {
-                // set the object to spawn to objectToSpawn.prefab here
-                setInstancePrefab(objectToSpawn.prefab);
-                smartSpwanObject(x, z);
-                return;
+                preferredObject = objectToSpawn;
             }
         }
+
+        if (preferredObject == null)
+            return;
+        setInstancePrefab(preferredObject.prefab);
+        smartSpwanObject(x, z);
     }
 }
