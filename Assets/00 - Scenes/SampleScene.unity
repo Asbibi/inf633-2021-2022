@@ -832,8 +832,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40b03f7c5b9700428d80e307c6dcfde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  limitHeight: 0
+  heightMax: 20
+  limitSteepness: 0
+  steepnessMaxAngle: 70
+  snapOnGrid: 0
+  xSubdivision: 100
+  zSubdivision: 100
   removePreviousObjectInArea: 0
+  randomAroundGridPoint: 1
   number: 5
+  inCircle: 0
 --- !u!114 &374040435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,6 +855,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a784b2bfbd9436ababbfa7c8e8805a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  limitHeight: 0
+  heightMax: 20
+  limitSteepness: 0
+  steepnessMaxAngle: 70
+  snapOnGrid: 0
+  xSubdivision: 100
+  zSubdivision: 100
 --- !u!114 &374040436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,10 +874,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec577b1aa4f5b45908e4e3cac6fd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  removePreviousObjectInArea: 0
+  limitHeight: 0
+  heightMax: 20
+  limitSteepness: 0
+  steepnessMaxAngle: 70
   snapOnGrid: 0
   xSubdivision: 100
   zSubdivision: 100
+  removePreviousObjectInArea: 0
   prefabsToSpawn:
   - height: 3
     prefab: {fileID: 100000, guid: 6aab193b7693b5e4c9741f1917d2987c, type: 3}
@@ -912,15 +932,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374040426}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58addec6626ef40dfb932e8efbbb6236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   popSize: 100
-  animalPrefab: {fileID: 0}
+  animalPrefab: {fileID: 6733265589692463594, guid: b8a4860b06bc8b44fa2e523916edd3dd,
+    type: 3}
+  smellPrefab: {fileID: 7823065144101268389, guid: 325a7b58086f166489edb122589e7352,
+    type: 3}
   vegetationGrowthRate: 1
   currentGrowth: 0
+  vegetationSmellStrenght: 6
+  vegetationSmellDecreaseAmount: 0.05
 --- !u!114 &374040441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,7 +1803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1965446001
 Transform:
   m_ObjectHideFlags: 0
@@ -2017,7 +2042,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137751596}
-  m_LocalRotation: {x: 0.09467273, y: 0.4793379, z: -0.05210416, w: 0.870952}
+  m_LocalRotation: {x: 0.09467271, y: 0.4793379, z: -0.052104156, w: 0.870952}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

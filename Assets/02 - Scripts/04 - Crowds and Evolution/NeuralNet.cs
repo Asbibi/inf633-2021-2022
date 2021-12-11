@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimpleNeuralNet
+public class NeuralNet
 {
-
     private List<float[,]> allWeights;
     private List<float[]> allResults;
 
-    public SimpleNeuralNet(SimpleNeuralNet other)
+    public NeuralNet(NeuralNet other)
     {
         allWeights = new List<float[,]>();
         allResults = new List<float[]>();
@@ -22,7 +21,7 @@ public class SimpleNeuralNet
         }
     }
 
-    public SimpleNeuralNet(int[] structure)
+    public NeuralNet(int[] structure)
     {
         allWeights = new List<float[,]>();
         allResults = new List<float[]>();

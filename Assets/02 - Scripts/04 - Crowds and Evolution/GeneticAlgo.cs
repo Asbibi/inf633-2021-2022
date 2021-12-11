@@ -10,10 +10,15 @@ public class GeneticAlgo : MonoBehaviour
     [Header("Genetic Algorithm parameters")]
     public int popSize = 100;
     public GameObject animalPrefab;
+    public GameObject smellPrefab;
 
     [Header("Dynamic elements")]
     public float vegetationGrowthRate = 1.0f;
     public float currentGrowth;
+    public float vegetationSmellStrenght = 5f;
+    public float vegetationSmellDecreaseAmount = 0.02f;
+    private float vegetationSmellPeriod;
+    private float vegetationSmellTimer = 0;
 
     private List<GameObject> animals;
     protected Terrain terrain;
@@ -23,6 +28,11 @@ public class GeneticAlgo : MonoBehaviour
 
     void Start()
     {
+        // Smell setup
+        SmellFactory.SetSmellPrefab(smellPrefab);
+        vegetationSmellPeriod = (vegetationSmellStrenght + 0.001f) * Time.fixedDeltaTime / vegetationSmellDecreaseAmount;
+        vegetationSmellTimer = vegetationSmellPeriod*3/4;
+
         // Retrieve terrain.
         terrain = Terrain.activeTerrain;
         customTerrain = GetComponent<CustomTerrain>();
@@ -52,6 +62,7 @@ public class GeneticAlgo : MonoBehaviour
 
         // Update grass elements/food resources.
         updateResources();
+        updateResourceSmell();
     }
 
     /// <summary>
@@ -70,6 +81,31 @@ public class GeneticAlgo : MonoBehaviour
             currentGrowth -= 1.0f;
         }
         customTerrain.saveDetails();
+    }
+
+    private void updateResourceSmell()
+    {
+        return;
+
+        vegetationSmellTimer += Time.deltaTime;
+        if (vegetationSmellTimer < vegetationSmellPeriod)
+            return;
+
+        vegetationSmellTimer -= vegetationSmellPeriod;
+
+        Vector2 detail_sz = customTerrain.detailSize();
+        int[,] details = customTerrain.getDetails();
+        for(int i = 0; i < detail_sz.x; i++)
+        {
+            for (int j = 0; j < detail_sz.y; j++)
+            {
+                if (details[i, j] > 0)
+                {
+                    Vector3 pos = new Vector3(j * (height / detail_sz.y), 0, i * (width / detail_sz.x));
+                    SmellFactory.AddSmell(gameObject, pos, vegetationSmellStrenght * details[i, j], vegetationSmellDecreaseAmount, false, 2);
+                }
+            }
+        }
     }
 
     /// <summary>

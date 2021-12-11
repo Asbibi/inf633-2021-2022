@@ -17,7 +17,6 @@ public class Animal : MonoBehaviour
 
 
     [Header("Reproduction parameters")]
-    public float eatingReproductionProbability = 0.2f;
     public float reproduceDistance = 2;
     public float reproduceDelay = 2.0f;
     public float minEnergyToReproduce = 4;
@@ -60,7 +59,7 @@ public class Animal : MonoBehaviour
     private Transform tfm;
     private float[] vision;
     private float[] nose;
-    static private int nSmells = 2; // angle and strongest for grass, male & female
+    static private int nSmells = 4;//6; // angle and strongest for grass, male & female
 
     // Genetic alg.
     private GeneticAlgo genetic_algo = null;
@@ -74,9 +73,9 @@ public class Animal : MonoBehaviour
         vision = new float[nEyes];
         nose = new float[nSmells];
         networkStruct = new int[] {
-            nEyes + nSmells,        // Vision receptor : number of eye | Nose receptor : number of different smells
+            nEyes + nSmells + 1,    // Gender : male or female | Vision receptor : number of eye | Nose receptor : number of different smells
             6,
-            2 };                    // Number of output : the turn angle, the additional smell strength
+            1 };                    // Number of output (the angle)
         energy = maxEnergy;
         tfm = transform;
         animals.AddLast(this);
@@ -135,10 +134,7 @@ public class Animal : MonoBehaviour
                 {
                     reproduceTimer = reproduceDelay;
                     genetic_algo.addOffspring(this);
-                    //energy -= maxEnergy/2;   // make the reproduction costly
-                    //energy += 3 * lossEnergy;
-                    //if (energy > maxEnergy)
-                        energy = maxEnergy;
+                    //energy -= lossEnergy;   // make the reproduction costly
                     Debug.Log("Reproduced by proximity");
                     break;
                 }
@@ -154,11 +150,7 @@ public class Animal : MonoBehaviour
             if (energy > maxEnergy)
                 energy = maxEnergy;
 
-            if (UnityEngine.Random.value < eatingReproductionProbability)    // Maybe reproduce (kept to make the animals learn the need to feed)
-            {
-                genetic_algo.addOffspring(this);
-                Debug.Log("Reproduced by eating");
-            }
+            genetic_algo.addOffspring(this);
         }
 
         // If the energy is below 0, the animal dies.
@@ -167,7 +159,6 @@ public class Animal : MonoBehaviour
             energy = 0.0f;
             genetic_algo.removeAnimal(this);
             animals.Remove(this);
-            Debug.Log("Dead");
         }
 
         // Update the color of the animal as a function of the energy that it contains.
@@ -179,16 +170,17 @@ public class Animal : MonoBehaviour
         UpdateNose();
 
         // 2. Use brain.
-        float[] input = new float[vision.Length + nose.Length];
-        vision.CopyTo(input, 0);
-        nose.CopyTo(input, vision.Length);
+        float[] input = new float[1 + vision.Length + nose.Length];
+        input[0] = isMale ? 0 : 1;
+        vision.CopyTo(input, 1);
+        nose.CopyTo(input, vision.Length + 1);
         float[] output = brain.getOutput(input);
 
         // 3. Act using actuators.
         float angle = (output[0] * 2.0f - 1.0f) * maxAngle;
         tfm.Rotate(0.0f, angle, 0.0f);
 
-        EmitSmell(minSmellStrenght * (1 + output[1]));
+        EmitSmell(minSmellStrenght);
     }
 
     /// <summary>
@@ -236,10 +228,22 @@ public class Animal : MonoBehaviour
         // Reset
         float cumulate = 0;
         float angle = 0;
-
-        SmellFactory.Smelling(isMale ? femaleTag : maleTag, gameObject, noseStrenght, ref cumulate, ref angle);
-        nose[0] = cumulate/(2 * minSmellStrenght);
+        /*SmellFactory.Smelling(grassTag, gameObject, noseStrenght, ref cumulate, ref angle);
+        nose[0] = cumulate;
         nose[1] = angle;
+        SmellFactory.Smelling(maleTag, gameObject, noseStrenght, ref cumulate, ref angle);
+        nose[2] = cumulate;
+        nose[3] = angle;
+        SmellFactory.Smelling(femaleTag, gameObject, noseStrenght, ref cumulate, ref angle);
+        nose[4] = cumulate;
+        nose[5] = angle;*/
+
+        SmellFactory.Smelling(maleTag, gameObject, noseStrenght, ref cumulate, ref angle);
+        nose[0] = cumulate;
+        nose[1] = angle;
+        SmellFactory.Smelling(femaleTag, gameObject, noseStrenght, ref cumulate, ref angle);
+        nose[2] = cumulate;
+        nose[3] = angle;
     }
 
     public void Setup(CustomTerrain ct, GeneticAlgo ga)
