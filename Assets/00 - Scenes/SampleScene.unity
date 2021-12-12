@@ -554,7 +554,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.65555e-39, y: 2.2e-44, z: 9.18355e-40, w: 2.2e-44}
+  m_BoundingSphereOverride: {x: 0, y: -0.0000000072341564, z: 8.02e-43, w: -0.000000005916533}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -939,12 +939,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374040426}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58addec6626ef40dfb932e8efbbb6236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popSize: 20
+  popSize: 70
   animalPrefab: {fileID: 8107060311548940698, guid: 8a5bdd5f0b606b74590db79463d30930,
     type: 3}
   smellPrefab: {fileID: 7823065144101268389, guid: 325a7b58086f166489edb122589e7352,
@@ -2078,7 +2078,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137751596}
-  m_LocalRotation: {x: 0.09467271, y: 0.4793379, z: -0.052104156, w: 0.870952}
+  m_LocalRotation: {x: 0.09467273, y: 0.4793379, z: -0.05210416, w: 0.870952}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
