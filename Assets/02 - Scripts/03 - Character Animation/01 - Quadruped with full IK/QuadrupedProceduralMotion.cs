@@ -174,6 +174,11 @@ public class QuadrupedProceduralMotion : MonoBehaviour
         // hips.position = ...
         // hips.rotation = ...
 
+        hips.position = new Vector3(hips.position.x, constantHipsPosition.y + posHit.y, hips.position.z);
+
+        Quaternion grndTilt = Quaternion.FromToRotation(hips.up, normalTerrain);
+        hips.rotation = Quaternion.Slerp(hips.rotation, grndTilt * hips.rotation, 1 - Mathf.Exp(-heightAcceleration * Time.deltaTime));
+
         // END TODO ###################
     }
 
