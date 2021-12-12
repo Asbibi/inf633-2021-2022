@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-public class PerlinNoise : TerrainBrush {
+public class PerlinNoise : TerrainAddBrush {
     public float height = 5;
     public float scale = 10; 
 
@@ -13,8 +13,8 @@ public class PerlinNoise : TerrainBrush {
                 var h = terrain.get(x+xi, z+zi);
                 float X = xi/scale; 
                 float Z = zi/scale; 
-                float perlin = height * Mathf.PerlinNoise(X, Z); 
-                terrain.set(x + xi, z + zi, perlin);
+                float perlin = height * Mathf.PerlinNoise(X, Z);
+                setTerrainHeight(x + xi, z + zi, perlin);
             }
         }
     }

@@ -85,6 +85,7 @@ public class QuadrupedProceduralMotion : MonoBehaviour
     /// </summary>
     private void RootMotion()
     {
+        /*
         // Get the vector towards the goal and projectected it on the plane defined by the normal transform.up.
         Vector3 towardGoal = goal.position - transform.position;
         Vector3 towardGoalProjected = Vector3.ProjectOnPlane(towardGoal, transform.up);
@@ -128,6 +129,7 @@ public class QuadrupedProceduralMotion : MonoBehaviour
 
         // Apply rotation.
         transform.rotation *= Quaternion.AngleAxis(Time.deltaTime * currentAngularVelocity, transform.up);
+        */
     }
 
     #endregion
@@ -293,4 +295,12 @@ public class QuadrupedProceduralMotion : MonoBehaviour
     }
 
     #endregion
+
+    void OnDestroy()
+    {
+        Destroy(frontLeftFoot.gameObject);
+        Destroy(frontRightFoot.gameObject);
+        Destroy(backLeftFoot.gameObject);
+        Destroy(backRightFoot.gameObject);
+    }
 }
